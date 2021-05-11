@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import at.lhofwimmer.composetemplate.data.local.dao.ExampleDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
+/*
 @Database(entities = [], version = 2, exportSchema = false)
 abstract class ExampleDatabase : RoomDatabase() {
 
@@ -48,4 +48,4 @@ abstract class ExampleDatabase : RoomDatabase() {
         suspend fun populateDatabase(apiDao: ExampleDao) {
         }
     }
-}
+}*/

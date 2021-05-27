@@ -1,15 +1,21 @@
 package at.lhofwimmer.composetemplate.ui
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import at.lhofwimmer.composetemplate.MainActivity
+import at.lhofwimmer.composetemplate.ui.components.Logo
+import at.lhofwimmer.composetemplate.ui.theme.Size
 import at.lhofwimmer.composetemplate.ui.theme.Yellow100
 import at.lhofwimmer.composetemplate.ui.theme.Yellow50
 
@@ -18,28 +24,22 @@ fun SignIn() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Yellow100)
     ) {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
-
+        val context = LocalContext.current
 
         Column(
             modifier = Modifier
-                .padding(bottom = 16.dp, start = 16.dp, end = 16.dp, top = 100.dp)
+                .padding(bottom = Size.Large, start = Size.Large, end = Size.Large, top = 100.dp)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.Start,
 //            verticalArrangement = Arrangement.Center,
         ) {
 
-            Text(
-                text = "Koch\nKamerad",
-                style = MaterialTheme.typography.h3,
-                fontSize = 58.sp,
-                lineHeight = 54.sp,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            Logo()
+
+            Spacer(modifier = Modifier.height(Size.Large))
 
             OutlinedTextField(
                 value = email,
@@ -50,8 +50,10 @@ fun SignIn() {
                     Text("Email address")
                 },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+                modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.height(Size.Large))
 
             OutlinedTextField(
                 value = password,
@@ -68,10 +70,11 @@ fun SignIn() {
             )
 
             Button(
-                onClick = { /*TODO navigate to main screen*/ },
-                modifier = Modifier.fillMaxWidth()
+                onClick = { context.startActivity(Intent(context,MainActivity::class.java)) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp)
             ) {
-                Text("Sign In", modifier = Modifier.padding(8.dp),)
+                Text("Sign In", modifier = Modifier.padding(8.dp))
             }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {

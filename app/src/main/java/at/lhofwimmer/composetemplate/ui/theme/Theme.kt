@@ -12,6 +12,7 @@ import at.lhofwimmer.composetemplate.R
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 val Green500 = Color(0xFF10B981)
@@ -29,9 +30,9 @@ private val LightColorPalette = lightColors(
     primaryVariant = Green500,
     secondary = Yellow400,
     secondaryVariant = Yellow100,
-    background = Yellow50,
-    surface = Yellow50,
-    onPrimary = Yellow50,
+    background = Color.White,
+    surface = Color.White,
+    onPrimary = Color.White,
     onSecondary = Grey800,
     onBackground = Grey800,
     onSurface = Grey800
@@ -62,51 +63,93 @@ val montserrat = FontFamily(
 )
 
 val typography = Typography(
-    body1 = TextStyle(
-        fontFamily = inter,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    ),
-    body2 = TextStyle(
-        fontFamily = inter,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp
-    ),
     h1 = TextStyle(
         fontFamily = montserrat,
-        fontWeight = FontWeight.Bold,
-        fontSize = 36.sp
+        fontWeight = FontWeight.W300,
+        fontSize = 97.sp,
+        letterSpacing = (-1.5).sp
     ),
     h2 = TextStyle(
         fontFamily = montserrat,
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 36.sp
+        fontWeight = FontWeight.W300,
+        fontSize = 61.sp,
+        letterSpacing = (-0.5).sp
     ),
     h3 = TextStyle(
         fontFamily = montserrat,
-        fontWeight = FontWeight.Black,
-        fontSize = 36.sp,
-        color = Grey700
+        fontWeight = FontWeight.W400,
+        fontSize = 48.sp,
     ),
     h4 = TextStyle(
         fontFamily = montserrat,
-        fontWeight = FontWeight.Bold,
-        fontSize = 28.sp
+        fontWeight = FontWeight.W400,
+        fontSize = 34.sp,
+        letterSpacing = (0.25).sp
     ),
     h5 = TextStyle(
         fontFamily = montserrat,
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 28.sp
+        fontWeight = FontWeight.W400,
+        fontSize = 24.sp,
     ),
     h6 = TextStyle(
         fontFamily = montserrat,
-        fontWeight = FontWeight.Black,
-        fontSize = 28.sp
+        fontWeight = FontWeight.W500,
+        fontSize = 20.sp,
+        letterSpacing = (0.15).sp
     ),
+    body1 = TextStyle(
+        fontFamily = inter,
+        fontWeight = FontWeight.W400,
+        fontSize = 16.sp,
+        letterSpacing = (0.5).sp
+    ),
+    body2 = TextStyle(
+        fontFamily = inter,
+        fontWeight = FontWeight.W400,
+        fontSize = 14.sp,
+        letterSpacing = (0.25).sp
+    ),
+    subtitle1 = TextStyle(
+        fontFamily = montserrat,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.W400,
+        letterSpacing = (0.15).sp
+    ),
+    subtitle2 = TextStyle(
+        fontFamily = montserrat,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.W500,
+        letterSpacing = (0.1).sp
+    ),
+    button = TextStyle(
+        fontFamily = inter,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.W500,
+        letterSpacing = (1.25).sp
+    ),
+    caption = TextStyle(
+        fontFamily = inter,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.W400,
+        letterSpacing = (0.4).sp
+    ),
+    overline = TextStyle(
+        fontFamily = inter,
+        fontSize = 10.sp,
+        fontWeight = FontWeight.W400,
+        letterSpacing = (1.5).sp
+    )
 )
 
+object Size {
+    val Small = 4.dp
+    val Medium = 8.dp
+    val Large = 16.dp
+    val XLarge = 32.dp
+}
+
 @Composable
-fun ComposeTemplateTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun ComposeTemplateTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colors = LightColorPalette,
         typography = typography,

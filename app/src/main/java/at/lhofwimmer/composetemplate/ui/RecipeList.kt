@@ -33,6 +33,8 @@ import com.gowtham.ratingbar.RatingBar
 @ExperimentalFoundationApi
 @Composable
 fun RecipeList() {
+    val navController = LocalNavController.current
+
     val items = remember {
         val newList = mutableListOf<RecipeListItem>()
 
@@ -49,7 +51,9 @@ fun RecipeList() {
         cells = GridCells.Fixed(2)
     ) {
         items(items) { recipe ->
-            RecipeListItem(recipe)
+            RecipeListItem(recipe) {
+                navController.navigate(Screen.RecipeDetails.route)
+            }
         }
         item {
             Spacer(modifier = Modifier.height(100.dp))
@@ -58,13 +62,11 @@ fun RecipeList() {
 }
 
 @Composable
-fun RecipeListItem(recipe: RecipeListItem) {
+fun RecipeListItem(recipe: RecipeListItem, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(Size.Medium)
-            .clickable {
-
-            }, elevation = Size.Small
+            .clickable(onClick = onClick), elevation = Size.Small
     ) {
         Column {
             //image

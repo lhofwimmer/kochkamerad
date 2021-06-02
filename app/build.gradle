@@ -52,7 +52,7 @@ android {
 dependencies {
     // General
     implementation "androidx.core:core-ktx:$core_version"
-    implementation 'androidx.appcompat:appcompat:$appcompat_version'
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.activity:activity-ktx:$activity_version"
 
     // Dependency Injection
@@ -116,7 +116,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-
 
     implementation 'io.github.a914-gowtham:compose-ratingbar:1.0.5'
 }

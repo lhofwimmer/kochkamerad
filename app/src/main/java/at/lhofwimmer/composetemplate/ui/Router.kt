@@ -7,12 +7,17 @@ import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+
+val LocalNavController = compositionLocalOf<NavController> { error("No navController found") }
 
 sealed class Screen(
     val route: String,
@@ -63,9 +68,12 @@ fun Router() {
             }
         }
     ) {
-        NavHost(navController = navController, startDestination = Screen.RecipeList.route) {
-            composable(Screen.RecipeList.route) { RecipeList()  }
-            composable(Screen.SmartCookbook.route) { SmartCookbook() }
+        CompositionLocalProvider(LocalNavController provides navController) {
+            NavHost(navController = navController, startDestination = Screen.RecipeDetails.route) {
+                composable(Screen.RecipeList.route) { RecipeList() }
+                composable(Screen.SmartCookbook.route) { SmartCookbook() }
+                composable(Screen.RecipeDetails.route) { RecipeDetail() }
+            }
         }
     }
 }

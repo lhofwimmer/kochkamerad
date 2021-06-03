@@ -19,6 +19,7 @@ import at.lhofwimmer.composetemplate.ui.theme.Size
 import at.lhofwimmer.composetemplate.ui.theme.Yellow100
 import at.lhofwimmer.composetemplate.ui.theme.Yellow50
 
+@ExperimentalMaterialApi
 @Composable
 fun SignIn() {
     Box(

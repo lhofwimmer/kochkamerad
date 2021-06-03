@@ -33,7 +33,7 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
-fun simpleCalender(){
+fun SimpleCalendar(){
 
     Column(modifier = Modifier.fillMaxSize()) {
 

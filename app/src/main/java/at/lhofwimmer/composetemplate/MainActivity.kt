@@ -8,10 +8,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import at.lhofwimmer.composetemplate.ui.Router
 import at.lhofwimmer.composetemplate.ui.SignIn
 import at.lhofwimmer.composetemplate.ui.theme.ComposeTemplateTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : ComponentActivity() {
-    @ExperimentalMaterialApi
     @ExperimentalFoundationApi
+    @ExperimentalMaterialApi
+    @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

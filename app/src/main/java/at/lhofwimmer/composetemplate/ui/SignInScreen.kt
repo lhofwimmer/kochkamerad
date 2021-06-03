@@ -19,7 +19,6 @@ import at.lhofwimmer.composetemplate.ui.theme.Size
 import at.lhofwimmer.composetemplate.ui.theme.Yellow100
 import at.lhofwimmer.composetemplate.ui.theme.Yellow50
 
-@ExperimentalMaterialApi
 @Composable
 fun SignIn() {
     Box(
@@ -42,33 +41,33 @@ fun SignIn() {
 
             Spacer(modifier = Modifier.height(Size.Large))
 
-            OutlinedTextField(
-                value = email,
-                onValueChange = {
-                    email = it
-                },
-                label = {
-                    Text("Email address")
-                },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(Size.Large))
-
-            OutlinedTextField(
-                value = password,
-                onValueChange = {
-                    password = it
-                },
-                label = {
-                    Text("Password")
-                },
-                singleLine = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 32.dp),
-            )
+//            OutlinedTextField(
+//                value = email,
+//                onValueChange = {
+//                    email = it
+//                },
+//                label = {
+//                    Text("Email address")
+//                },
+//                singleLine = true,
+//                modifier = Modifier.fillMaxWidth()
+//            )
+//
+//            Spacer(modifier = Modifier.height(Size.Large))
+//
+//            OutlinedTextField(
+//                value = password,
+//                onValueChange = {
+//                    password = it
+//                },
+//                label = {
+//                    Text("Password")
+//                },
+//                singleLine = true,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(bottom = 32.dp),
+//            )
 
             Button(
                 onClick = { context.startActivity(Intent(context,MainActivity::class.java)) },

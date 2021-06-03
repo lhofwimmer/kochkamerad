@@ -69,7 +69,7 @@ fun Router() {
         }
     ) {
         CompositionLocalProvider(LocalNavController provides navController) {
-            NavHost(navController = navController, startDestination = Screen.RecipeDetails.route) {
+            NavHost(navController = navController, startDestination = Screen.RecipeList.route) {
                 composable(Screen.RecipeList.route) { RecipeList() }
                 composable(Screen.SmartCookbook.route) { SmartCookbook() }
                 composable(Screen.RecipeDetails.route) { RecipeDetail() }

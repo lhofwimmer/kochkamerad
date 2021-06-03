@@ -3,7 +3,10 @@ package at.lhofwimmer.composetemplate.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.Event
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -14,7 +17,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
 
 val LocalNavController = compositionLocalOf<NavController> { error("No navController found") }
 
@@ -30,7 +32,6 @@ sealed class Screen(
     object Calendar : Screen("calendar", "Calendar", Icons.Outlined.Event)
 }
 
-@ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
@@ -71,11 +72,11 @@ fun Router() {
         }
     ) {
         CompositionLocalProvider(LocalNavController provides navController) {
-            NavHost(navController = navController, startDestination = Screen.RecipeList.route) {
+            NavHost(navController = navController, startDestination = Screen.Calendar.route) {
                 composable(Screen.RecipeList.route) { RecipeList() }
                 composable(Screen.SmartCookbook.route) { SmartCookbook() }
                 composable(Screen.RecipeDetails.route) { RecipeDetail() }
-                composable(Screen.Calendar.route) { SimpleCalendar() }
+                composable(Screen.Calendar.route) { SimpleCalender() }
             }
         }
     }

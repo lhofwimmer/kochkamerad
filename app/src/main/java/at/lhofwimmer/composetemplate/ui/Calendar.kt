@@ -25,74 +25,50 @@ import java.time.DayOfWeek
 import java.time.Month
 import java.util.*
 import at.lhofwimmer.composetemplate.data.local.static.RecipeListItem
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
+import at.lhofwimmer.composetemplate.swipe.ComposePagerSnapHelper
 
-
-@ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
-fun SimpleCalendar(){
+fun SimpleCalender() {
 
     Column(modifier = Modifier.fillMaxSize()) {
-
-        Row() {
-            Column(){
-                for (index in 8..22)
-                {
-                    if(index < 10)
-                    {
+        Row {
+            Column() {
+                for (index in 8..22) {
+                    if (index < 10) {
                         Text(text = "0$index:00")
-                    }
-                    else
-                    {
+                    } else {
                         Text(text = "$index:00")
                     }
 
                 }
             }
-            val pagerState = rememberPagerState(pageCount = 52)
 
-            HorizontalPager(state = pagerState) { page ->
-                // Our page content
-
-                Column(modifier = Modifier.fillMaxWidth()
-                    .background(MaterialTheme.colors.primary)) {
-                    Text(text = "KW $page")
-                    drawWeek()
-                }
-            }
-
-            /*LazyRow() {
-                stickyHeader {  }
-                var index = 1
-                items(52) { week ->
-                    Column() {
-                        Text(text = "KW $index")
-                        drawWeek()
+            ComposePagerSnapHelper(width = 320.dp) { listState ->
+                LazyRow(state = listState) {
+                    items((1..52).toList()) { week ->
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(text = "KW $week")
+                            DrawWeek()
+                        }
                     }
-                    index += 1
                 }
-            }*/
+            }
         }
-
-
-
     }
 }
 
 
 @Composable
-fun drawWeek()
-{
-    Row() {
-        for(index in 1..7)
-        {
-            Column {
-                for(index in 1..5)
-                {
-                    Entry(modifier = Modifier.weight(1f))
+fun DrawWeek() {
+    Row(modifier = Modifier.fillMaxSize()) {
+        for (i in 1..7) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                for (j in 1..5) {
+                    Entry(modifier = Modifier.weight(1f).fillMaxHeight())
                 }
             }
         }
@@ -100,16 +76,14 @@ fun drawWeek()
 }
 
 @Composable
-fun Entry(modifier: Modifier = Modifier)
-{
-    var CalendarEntry by remember{ mutableStateOf(CalendarEntry()) }
+fun Entry(modifier: Modifier = Modifier) {
+    var CalendarEntry by remember { mutableStateOf(CalendarEntry()) }
     Box(
-        modifier = Modifier
-            .background(MaterialTheme.colors.background)
-            .fillMaxWidth()
+        modifier = modifier
+            .border(1.dp,Color.Red)
             .clickable { })
     {
-        Text(text = CalendarEntry.recipe?.name ?: "")
+        Text(text = CalendarEntry.recipe?.name ?: "123")
     }
 
 }
@@ -118,10 +92,6 @@ data class CalendarEntry(
     val date: Calendar? = null,
     val recipe: RecipeListItem? = null
 )
-
-
-
-
 
 
 /*fun initCal() : list

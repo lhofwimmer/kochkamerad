@@ -26,8 +26,8 @@ val Grey700 = Color(0xFF374151)
 val Grey800 = Color(0xFF1F2937)
 
 private val LightColorPalette = lightColors(
-    primary = Green600,
-    primaryVariant = Green500,
+    primary = Green500,
+    primaryVariant = Green600,
     secondary = Yellow400,
     secondaryVariant = Yellow100,
     background = Color.White,

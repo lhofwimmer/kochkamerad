@@ -40,8 +40,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://jitpack.io' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.0-alpha01'

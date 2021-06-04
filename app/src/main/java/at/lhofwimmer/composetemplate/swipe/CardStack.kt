@@ -45,20 +45,6 @@ fun PersonCard(recipe: RecipeListItem) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp)
             ) {
-                /*Image(
-                    painter = painterResource(id = R.drawable.random),
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.size(196.dp),
-                    contentDescription = null
-                )*/
-//                CoilImage(
-//                    data = URL(person.img.orEmpty()).getSecuredUrl(),
-//                    contentDescription = "My content description",
-//                    requestBuilder = {
-//                        transformations(CircleCropTransformation())
-//                    }, modifier = Modifier.size(192.dp)
-//                )
-
                 Image(painterResource(id = recipe.image), contentDescription = null, modifier = Modifier.size(192.dp))
 
                 Spacer(modifier = Modifier.height(16.dp))

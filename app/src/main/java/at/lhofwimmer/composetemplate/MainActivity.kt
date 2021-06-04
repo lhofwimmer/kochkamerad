@@ -10,6 +10,7 @@ import at.lhofwimmer.composetemplate.ui.theme.ComposeTemplateTheme
 
 class MainActivity : ComponentActivity() {
     @ExperimentalFoundationApi
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

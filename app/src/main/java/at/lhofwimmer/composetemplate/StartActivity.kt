@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import at.lhofwimmer.composetemplate.ui.ShopList
 import at.lhofwimmer.composetemplate.ui.SignIn
 import at.lhofwimmer.composetemplate.ui.theme.ComposeTemplateTheme
 

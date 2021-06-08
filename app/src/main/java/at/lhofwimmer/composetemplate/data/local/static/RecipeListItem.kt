@@ -10,6 +10,8 @@ data class RecipeListItem(
     @DrawableRes val image: Int,
 )
 
+var recordedRecipes : MutableList<String> = mutableListOf()
+
 val recipeListItems = listOf(
     RecipeListItem(
         "Filetstreifen mit Spargel",

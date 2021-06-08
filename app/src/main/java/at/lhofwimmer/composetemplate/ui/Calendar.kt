@@ -1,110 +1,188 @@
 package at.lhofwimmer.composetemplate.ui
 
-import android.text.Layout
-import android.widget.ListView
+import android.graphics.Paint
+import android.os.Build
+import android.os.Message
+import android.view.Gravity
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import at.lhofwimmer.composetemplate.ui.theme.Size
-import java.sql.Time
-import java.text.DecimalFormat
+import androidx.compose.ui.unit.sp
 import java.time.DayOfWeek
-import java.time.Month
 import java.util.*
 import at.lhofwimmer.composetemplate.data.local.static.RecipeListItem
+import at.lhofwimmer.composetemplate.data.local.static.recipeDetail
+import at.lhofwimmer.composetemplate.data.local.static.recipeListItems
 import at.lhofwimmer.composetemplate.swipe.ComposePagerSnapHelper
-
-@ExperimentalFoundationApi
-@Composable
-fun SimpleCalender() {
-
-    Column(modifier = Modifier.fillMaxSize()) {
-        Row {
-            Column() {
-                for (index in 8..22) {
-                    if (index < 10) {
-                        Text(text = "0$index:00")
-                    } else {
-                        Text(text = "$index:00")
-                    }
-
-                }
-            }
-
-            ComposePagerSnapHelper(width = 320.dp) { listState ->
-                LazyRow(state = listState) {
-                    items((1..52).toList()) { week ->
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            Text(text = "KW $week")
-                            DrawWeek()
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+import org.intellij.lang.annotations.JdkConstants
+import java.util.Collections.list
 
 
-@Composable
-fun DrawWeek() {
-    Row(modifier = Modifier.fillMaxSize()) {
-        for (i in 1..7) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                for (j in 1..5) {
-                    Entry(modifier = Modifier.weight(1f).fillMaxHeight())
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun Entry(modifier: Modifier = Modifier) {
-    var CalendarEntry by remember { mutableStateOf(CalendarEntry()) }
-    Box(
-        modifier = modifier
-            .border(1.dp,Color.Red)
-            .clickable { })
-    {
-        Text(text = CalendarEntry.recipe?.name ?: "123")
-    }
-
+enum class DinnerType {
+    Breakfast, Brunch, Lunch, Linner, Dinner
 }
 
 data class CalendarEntry(
     val date: Calendar? = null,
-    val recipe: RecipeListItem? = null
-)
+    var recipe: RecipeListItem? = null)
 
+var recordedRecipes : MutableList<String> = mutableListOf()
 
-/*fun initCal() : list
-{
-    var list = listOf(371)
-
-    val cal = Calendar.getInstance()
-    cal.set(2020,0,1)
-
-    //ToDo get max range of year skip 7-first day of year
-    for(index in 1..60)
-    {
-        cal.add(Calendar.DATE, 1)
+@RequiresApi(Build.VERSION_CODES.O)
+@ExperimentalFoundationApi
+@Composable
+fun SimpleCalender() {
+    val (showDialog, setShowDialog) =  remember { mutableStateOf(false) }
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        ComposePagerSnapHelper(width = 2.dp) { listState ->
+            LazyRow(state = listState) {
+                items((1..3).toList()) { week ->
+                    Column(
+                    ) {
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Text(text = "KW $week", Modifier.padding(170.dp,0.dp))
+                        DrawWeek()
+                    }
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(onClick = { setShowDialog(true)}) {
+            Text("Create Shopping List")
+        }
+        MessagBox(showDialog, setShowDialog)
     }
-    return list
-}*/
+}
+
+
+@ExperimentalFoundationApi
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun DrawWeek() {
+
+    Column(horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp)) {
+        for(i in 0..4)
+        {
+            Text( DinnerType.values()[i].toString())
+            Row()
+            {
+                for (j in 1..7) {
+                    Column() {
+                        Entry()
+                        if(i == 4)
+                            Text(text = DayOfWeek.of(j).toString().substring(0,3), modifier = Modifier.padding(6.dp))
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@ExperimentalFoundationApi
+@Composable
+fun Entry(modifier: Modifier = Modifier) {
+    var calendarEntry by remember { mutableStateOf(CalendarEntry()) }
+    val (showDialog, setShowDialog) =  remember { mutableStateOf(false) }
+
+    Box(
+        modifier = modifier
+            .border(0.3f.dp, Color.DarkGray)
+            .clickable { setShowDialog(true) }
+            .size(width = 55.dp, height = 80.dp))
+
+    {
+        Text(text = calendarEntry.recipe?.name ?: "", fontSize = 12.sp)
+    }
+    calendarEntry = DialogDemo(showDialog, setShowDialog)
+}
+
+@Composable
+fun DialogDemo(showDialog: Boolean, setShowDialog: (Boolean) -> Unit) : CalendarEntry {
+    var selection by remember { mutableStateOf(CalendarEntry()) }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = {
+            },
+            title = {
+                Text("Title")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        // Change the state to close the dialog
+                        setShowDialog(false)
+                        if (selection != null)
+                            recordedRecipes.add(selection.recipe!!.name)
+                    },
+                ) {
+                    Text("Submit")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        // Change the state to close the dialog
+                        setShowDialog(false)
+                        selection.recipe = null
+
+                    },
+                ) {
+                    Text("Cancel")
+                }
+            },
+            text = {
+                LazyColumn() {
+                    items(recipeListItems) { item ->
+                        RecipeListItem(item, item == selection.recipe) { selection.recipe = item}
+                    }
+                }
+            }
+        )
+    }
+    return selection
+}
+
+@Composable
+fun MessagBox(showDialog: Boolean, setShowDialog: (Boolean) -> Unit) {
+    if (showDialog) {
+
+        AlertDialog(
+            onDismissRequest = {
+            },
+            title = {
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        // Change the state to close the dialog
+                        setShowDialog(false)
+                    },
+                ) {
+                    Text("OK")
+                }
+            },
+            dismissButton = {
+            },
+            text = {
+                Text("Shopping list has been created.")
+            }
+        )
+    }
+}
+
+
+
+

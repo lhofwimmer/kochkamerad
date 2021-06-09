@@ -84,7 +84,7 @@ fun RecipeListItem(recipe: RecipeListItem, isSelected: Boolean = false, onClick:
                 Text(recipe.name, style = MaterialTheme.typography.h6)
                 Spacer(modifier = Modifier.height(Size.Large))
                 // stars
-                RatingBar(value = recipe.rating.toFloat(), activeColor = Grey700, size = 16.dp, inactiveColor = Color.Transparent) {}
+                RatingBar(value = recipe.rating.toFloat(), activeColor = Grey700, size = 12.dp, inactiveColor = Color.Transparent) {}
             }
         }
     }

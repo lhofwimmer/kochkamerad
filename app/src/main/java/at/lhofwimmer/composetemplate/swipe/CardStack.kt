@@ -1,13 +1,12 @@
 package at.lhofwimmer.composetemplate.swipe
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowForward
 import androidx.compose.material.icons.twotone.CalendarToday
 import androidx.compose.material.icons.twotone.MyLocation
 import androidx.compose.material.icons.twotone.SupervisedUserCircle
@@ -16,13 +15,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import at.lhofwimmer.composetemplate.R
 import at.lhofwimmer.composetemplate.data.local.static.RecipeListItem
+import at.lhofwimmer.composetemplate.ui.LocalNavController
+import at.lhofwimmer.composetemplate.ui.Screen
 import at.lhofwimmer.composetemplate.ui.theme.ComposeTemplateTheme
+import at.lhofwimmer.composetemplate.ui.theme.Grey100
+import at.lhofwimmer.composetemplate.ui.theme.Grey700
+import at.lhofwimmer.composetemplate.ui.theme.Size
+import com.gowtham.ratingbar.RatingBar
 
 /**
  * Composable to create a person card 1 box
@@ -30,55 +37,50 @@ import at.lhofwimmer.composetemplate.ui.theme.ComposeTemplateTheme
  * https://github.com/cyph3rcod3r/Tinder-Like
  */
 @Composable
-fun PersonCard(recipe: RecipeListItem) {
-    var details by remember { mutableStateOf(recipe.name) }
-    val user = remember { mutableStateOf(true) }
-    val dob = remember { mutableStateOf(false) }
-    val loc = remember { mutableStateOf(false) }
-    val phone = remember { mutableStateOf(false) }
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun PersonCard(recipe: RecipeListItem = RecipeListItem("Lorem Ipsum", "Hauptspeise", 3.5, R.drawable.hamburger_494706_1920)) {
+    Column {
+        val navController = LocalNavController.current
+
         Surface(shape = RoundedCornerShape(4.dp), elevation = 4.dp) {
+            Column {
+                Image(
+                    painterResource(id = recipe.image),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth().height(400.dp),
+                    contentScale = ContentScale.Crop
+                )
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp)
-            ) {
-                Image(painterResource(id = recipe.image), contentDescription = null, modifier = Modifier.size(192.dp))
+                Column(modifier = Modifier.padding(Size.Large).fillMaxWidth()) {
+                    Text(recipe.category + " •", style = MaterialTheme.typography.overline)
+                    Text(
+                        text = recipe.name,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.h5,
+                        modifier = Modifier.fillMaxWidth()
+                    )
 
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(text = details.orEmpty(), overflow = TextOverflow.Ellipsis)
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Row {
-                    IconButton(onClick = {
-                        user.value = true; dob.value = false; loc.value = false;phone.value = false
-                        details = recipe.name
-                    }) {
-                        Icon(
-                            imageVector = Icons.TwoTone.SupervisedUserCircle,
-                            contentDescription = null,
-                            modifier = Modifier.height(56.dp)
-                        )
-                    }
-                    IconButton(onClick = {
-                        dob.value = true; user.value = false; loc.value = false;phone.value = false
-                        details = recipe.category
-                    }) {
-                        Icon(
-                            imageVector = Icons.TwoTone.CalendarToday,
-                            contentDescription = null,
-                            modifier = Modifier.height(56.dp)
-                        )
-                    }
-                    IconButton(onClick = {
-                        loc.value = true; dob.value = false; user.value = false;phone.value = false
-                        details = recipe.rating.toString()
-                    }) {
-                        Icon(
-                            imageVector = Icons.TwoTone.MyLocation,
-                            contentDescription = null,
-                            modifier = Modifier.height(56.dp)
-                        )
+                    Spacer(modifier = Modifier.height(Size.Medium))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        RatingBar(
+                            value = recipe.rating.toFloat(),
+                            activeColor = Grey700,
+                            size = 12.dp,
+                            inactiveColor = Color.Transparent
+                        ) {}
+                        Button(
+                            onClick = { navController.navigate(Screen.RecipeDetails.route) },
+                            shape = RoundedCornerShape(Size.Medium)
+                        ) {
+                            Row {
+                                Text("Recipe")
+                                Spacer(modifier = Modifier.width(Size.Medium))
+                                Icon(Icons.Rounded.ArrowForward, null)
+                            }
+                        }
                     }
                 }
             }

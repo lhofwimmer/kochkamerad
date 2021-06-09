@@ -1,8 +1,6 @@
 package at.lhofwimmer.composetemplate.ui
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
@@ -62,11 +60,12 @@ fun RecipeList() {
 }
 
 @Composable
-fun RecipeListItem(recipe: RecipeListItem, onClick: () -> Unit) {
+fun RecipeListItem(recipe: RecipeListItem, isSelected: Boolean = false, onClick: () -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(Size.Medium)
-            .clickable(onClick = onClick), elevation = Size.Small
+            .clickable(onClick = onClick)
+            .border(2.dp, if (isSelected) MaterialTheme.colors.primary else Color.Transparent), elevation = Size.Small
     ) {
         Column {
             //image

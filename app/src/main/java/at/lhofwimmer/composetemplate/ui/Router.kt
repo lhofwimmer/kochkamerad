@@ -30,6 +30,7 @@ sealed class Screen(
     object RecipeDetails : Screen("recipe_detail", "Recipe Details")
     object SmartCookbook : Screen("smart_cookbook", "Smart Cookbook", Icons.Outlined.FavoriteBorder)
     object Calendar : Screen("calendar", "Calendar", Icons.Outlined.Event)
+    object Shop : Screen("shop","shop")
 }
 
 @ExperimentalMaterialApi
@@ -41,7 +42,8 @@ fun Router() {
     val navBarItems = listOf(
         Screen.RecipeList,
         Screen.SmartCookbook,
-        Screen.Calendar
+        Screen.Calendar,
+        Screen.Shop
     )
 
     Scaffold(
@@ -77,6 +79,7 @@ fun Router() {
                 composable(Screen.SmartCookbook.route) { SmartCookbook() }
                 composable(Screen.RecipeDetails.route) { RecipeDetail() }
                 composable(Screen.Calendar.route) { SimpleCalender() }
+                composable(Screen.Shop.route) { ShopList()}
             }
         }
     }

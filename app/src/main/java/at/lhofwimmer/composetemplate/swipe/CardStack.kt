@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.CalendarToday
 import androidx.compose.material.icons.twotone.MyLocation
-import androidx.compose.material.icons.twotone.Phone
 import androidx.compose.material.icons.twotone.SupervisedUserCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import at.lhofwimmer.composetemplate.R
 import at.lhofwimmer.composetemplate.data.local.static.RecipeListItem
 import at.lhofwimmer.composetemplate.ui.theme.ComposeTemplateTheme
-import java.net.URL
 
 /**
  * Composable to create a person card 1 box
